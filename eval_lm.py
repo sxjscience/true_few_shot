@@ -277,6 +277,7 @@ for seed in seeds:
         
         # Make train/dev set
         permutation_order = list(range(len(permutations)))  # Go through permutations in order by default
+        print('num_train=', num_train)
         if num_train == 0:
             rng = None
             train_idxs = []
@@ -285,6 +286,7 @@ for seed in seeds:
             dev_idxs = list(range(len(dev)))
         else:
             xys = deepcopy(rel2xys[rel])
+            print('xys=', xys)
             rng = np.random.default_rng(seed)
             if data_name == 'super_glue':
                 if num_train != 5:
