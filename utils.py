@@ -591,6 +591,7 @@ def complete_lm(model, tokenizer, prompt, l=0, num_log_probs=100, echo=True):
         else:
             # get the top tokens and probs for the context and the generated l tokens
             probs = torch.softmax(logits, dim=2).cpu()
+            print('probs.shape=', probs.shape)
         top_probs, top_tokens = torch.topk(probs, k=num_log_probs)
         logprobs = torch.log(probs)
         top_log_probs = torch.log(top_probs)
