@@ -321,8 +321,11 @@ for seed in seeds:
             
             # Format prompt and query LM
             pattern = rel2template2results[rel][template].get('template', template)
+            print('pattern=', pattern)
             instruction = '\n' + rel2template2results[rel][template].get('instruction', '')
+            print('instruction=', instruction)
             verbalizer = rel2template2results[rel][template].get('verbalizer', []) if data_name == 'super_glue' else vocab_tokens_sorted
+            print('verbalizer=', verbalizer)
             single_token_verbalizer = [tokenizer.decode(tokenizer.encode(v)[0]) for v in verbalizer] if rel == 'wic' else verbalizer
             single_token_verbalizer2idx = {v: i for i, v in enumerate(single_token_verbalizer)}
             single_token_verbalizer_set = set(single_token_verbalizer)
