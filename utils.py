@@ -212,6 +212,7 @@ def format_prompt(train, d, last_train_idx, permutation, verbalizer=[], rel=None
             else:
                 assert prompt[char_span_start['x0']: char_span_end['x0']] == f' {x}', f"{prompt[char_span_start['x0']: char_span_end['x0']]} != ' {x}'"
             print('prompt=', prompt)
+            print('char_spans=', char_spans)
             ch = input()
     else:
         raise NotImplementedError(f'rel = {rel}')
