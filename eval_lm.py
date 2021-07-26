@@ -104,7 +104,7 @@ if data_name in ['super_glue']:
 elif data_name in ['TREx', 'Google_RE']:
     num_prompts_per_type = 5
     # Load verbalizer
-    with open(f'{os.getenv("BASE")}/data/common_vocab_cased.txt') as f:
+    with open(f'{args.data_dir}/common_vocab_cased.txt') as f:
         vocab_tokens = set(line.strip() for line in f)
     vocab_tokens_sorted = list(sorted(vocab_tokens))
 
