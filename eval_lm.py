@@ -196,6 +196,8 @@ else:
                 plist.append(tuple(plist[-1][i] for i in p_rand))
                 ps.pop(ps.index(plist[-1]))
             all_plists.append(plist)
+        print('all_plists=')
+        print(all_plists)
         random.Random(0).shuffle(all_plists)
         
         all_plists = np.array(all_plists)
