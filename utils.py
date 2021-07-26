@@ -617,6 +617,7 @@ def complete_lm(model, tokenizer, prompt, l=0, num_log_probs=100, echo=True):
             curr_json['logprobs']['tokens'] = []
             
             nonzero_char_end_idxs = offset_mapping[batch_id, :, 1].nonzero()
+            print('top_tokens=', top_tokens)
             print('nonzero_char_end_idxs=', nonzero_char_end_idxs)
             ch = input()
             start_tok = min(nonzero_char_end_idxs).item() # inclusive
@@ -628,8 +629,6 @@ def complete_lm(model, tokenizer, prompt, l=0, num_log_probs=100, echo=True):
             
             if not echo:
                 # cutoff the -1 here because the probs are shifted one over for LMs
-                print('-1 top token:', top_tokens[batch_id][-1])
-                ch = input()
                 for current_element_top_log_probs, current_element_top_tokens in zip(top_log_probs[batch_id][:-1], top_tokens[batch_id][:-1]):
                     # tokens is a list of the top token at each position
                     curr_json['logprobs']['tokens'].append(tokenizer.decode([current_element_top_tokens[0]]))
