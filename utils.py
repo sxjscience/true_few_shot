@@ -554,7 +554,8 @@ def complete_lm(model, tokenizer, prompt, l=0, num_log_probs=100, echo=True):
         prompt = [prompt] # the code below assumes a list
     input_ids = tokenizer.batch_encode_plus(prompt, return_tensors="pt", padding=True, return_offsets_mapping=True)
     offset_mapping = input_ids.pop('offset_mapping')
-    
+    print('In complete_lm, input_ids=', input_ids)
+    ch = input()
     # greedily generate l tokens
     if l > 0:
         assert not xlnet, f'Generation not implemented for {model.__class__.__name__}'
