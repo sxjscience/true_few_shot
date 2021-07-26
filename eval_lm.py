@@ -309,12 +309,9 @@ for seed in seeds:
             else:
                 rng.shuffle(xys)
                 idxs = rng.permutation(len(xys)).tolist()
-                print('idxs=', idxs)
-                ch = input()
                 idxs = idxs[5: 5 + len(permutations)] + idxs[:5] + idxs[5 + len(permutations):]
-                print('idxs=', idxs)
-                ch = input()
                 dev_idxs, train_idxs = idxs[:len(permutations)], idxs[len(permutations): num_train + len(permutations)]
+                print('#train=', len(train_idxs), '#val=', len(dev_idxs))
                 train = [xys[i] for i in train_idxs]
                 dev = [xys[i] for i in dev_idxs][:len(permutations)]
 
