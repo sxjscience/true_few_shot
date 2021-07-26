@@ -190,6 +190,8 @@ else:
         # num_train == 5 option for backward compatibility with earlier experiments
         p_rand = np.array(random.Random(0).choice(ps)) if num_train == 5 else np.array(rand_hamiltonian_perm(num_train))
         all_plists = []
+        print('p_rand=')
+        print(p_rand)
         while (len(ps) > 0) and ((len(all_plists) * num_train) < max_permutations):
             plist = [ps.pop(0)]
             for _ in range(num_train - 1):
