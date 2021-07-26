@@ -617,6 +617,8 @@ def complete_lm(model, tokenizer, prompt, l=0, num_log_probs=100, echo=True):
             curr_json['logprobs']['tokens'] = []
             
             nonzero_char_end_idxs = offset_mapping[batch_id, :, 1].nonzero()
+            print('nonzero_char_end_idxs=', nonzero_char_end_idxs)
+            ch = input()
             start_tok = min(nonzero_char_end_idxs).item() # inclusive
             end_tok = max(nonzero_char_end_idxs).item() + 1 # exclusive
             if not xlnet:
