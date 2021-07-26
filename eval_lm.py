@@ -92,7 +92,7 @@ if data_name in ['super_glue']:
         train_rel2xys[rel] = [[d[field] for field in fields] for d in data['train']]
         rel2xys[rel] = [[d[field] for field in fields] for d in data['validation']]
         
-        templates = read_jsonl(f'{os.getenv("BASE")}/templates.{data_name}/{rel}.jsonl')
+        templates = read_jsonl(f'templates.{data_name}/{rel}.jsonl')
         rel2template2prompt_types[rel] = {}
         for template_no, template_info in enumerate(templates):
             template = template_info.get('instruction', '') + template_info['template']
