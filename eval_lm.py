@@ -19,7 +19,7 @@ from utils import rand_hamiltonian_perm, read_jsonl, normalize, preprocess_wsc, 
 notebook = sys.argv[0].endswith('ipykernel_launcher.py')
 if notebook:
     display(HTML("<style>.container { width:100% !important; }</style>"))
-DATA_DIR = f'{os.getenv("BASE")}/data'
+# DATA_DIR = f'{os.getenv("BASE")}/data'
 stat_names = ['mdl', 'loo', 'test']
 cm = plt.cm.plasma
 gpt3_engines = ['ada', 'babbage', 'curie', 'davinci']
@@ -38,6 +38,7 @@ rel2seqlenfactor = {
 # Settings
 parser = argparse.ArgumentParser()
 parser.add_argument("--num_train", default=5, type=int, help="The number of training examples to use.")
+parser.add_argument("--data_dir", default='data', help='Data folder')
 parser.add_argument("--data_name", default='TREx', choices=['TREx', 'Google_RE', 'super_glue'], type=str, help="The dataset to use.")
 parser.add_argument("--engine", default='gpt2', choices=sorted(engine2name), type=str, help="The engine (model) to use.")
 parser.add_argument("--seeds", default=[0, 1, 2, 3, 4], nargs='+', type=int, help="The random seeds to use for selecting training data points.")
@@ -48,6 +49,8 @@ parser.add_argument("--num_dev", default=None, type=int, help="The number of dev
 parser.add_argument("--load_logprobs", default=False, action="store_true", help="Whether or not to load logprobs into memory.")
 parser.add_argument("--debug", default=False, action="store_true", help="Whether or not to use debug mode / verbose printing.")
 args = parser.parse_args('') if notebook else parser.parse_args()
+
+DATA_DIR = args.data_dir
 
 num_train = args.num_train
 data_name = args.data_name
