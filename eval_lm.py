@@ -341,7 +341,7 @@ for seed in seeds:
             if debug:
                 break
             all_logprobs = get_logprobs(prompts, engine, model=model, tokenizer=tokenizer, batch_size=min(max(1, (engine2bs[engine] // num_train) // rel2seqlenfactor.get(rel, 1)), 120))
-            
+            print('all_logprobs=', all_logprobs)
             for didx, (d, logprobs, prompt, char_spans, train_permutation) in enumerate(zip(dev, all_logprobs, prompts, char_spanss, train_permutations)):
                 # Get results
                 all_labels_list = [[] if (rel2x2validys is None) else rel2x2validys[rel][xy[0]] for xy in train + [d]]

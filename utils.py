@@ -125,13 +125,13 @@ def get_logprobs(prompt, engine='ada', retry_delay=10, logprobs=100, model=None,
 
 
 def format_prompt(train, d, last_train_idx, permutation, verbalizer=[], rel=None, instruction='\n', template=''):
-    print('in format_prompt')
-    print('d=', d)
-    print('permutation=', permutation)
-    print('rel=', rel)
-    print('instruction=', instruction)
-    print('template=', template)
-    ch = input()
+    # print('in format_prompt')
+    # print('d=', d)
+    # print('permutation=', permutation)
+    # print('rel=', rel)
+    # print('instruction=', instruction)
+    # print('template=', template)
+    # ch = input()
     examples = [train[tidx] for tidx in permutation] + [d]
     char_spans = []
     
@@ -211,9 +211,9 @@ def format_prompt(train, d, last_train_idx, permutation, verbalizer=[], rel=None
                 assert prompt[char_span_start['x0']: char_span_end['x0']] == x, f"{prompt[char_span_start['x0']: char_span_end['x0']]} == '{x}'"
             else:
                 assert prompt[char_span_start['x0']: char_span_end['x0']] == f' {x}', f"{prompt[char_span_start['x0']: char_span_end['x0']]} != ' {x}'"
-            print('prompt=', prompt)
-            print('char_spans=', char_spans)
-            ch = input()
+            # print('prompt=', prompt)
+            # print('char_spans=', char_spans)
+            # ch = input()
     else:
         raise NotImplementedError(f'rel = {rel}')
     return prompt, char_spans, permutation
