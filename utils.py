@@ -125,6 +125,13 @@ def get_logprobs(prompt, engine='ada', retry_delay=10, logprobs=100, model=None,
 
 
 def format_prompt(train, d, last_train_idx, permutation, verbalizer=[], rel=None, instruction='\n', template=''):
+    print('in format_prompt')
+    print('d=', d)
+    print('permutation=', permutation)
+    print('rel=', rel)
+    print('instruction=', instruction)
+    print('template=', template)
+    ch = input()
     examples = [train[tidx] for tidx in permutation] + [d]
     char_spans = []
     
