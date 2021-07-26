@@ -317,15 +317,19 @@ for seed in seeds:
         # Get results
         for template in tqdm(sorted(rel2template2results[rel]), desc=f'{rel} ({len(rel2template2results[rel])} templates)'):
             print('template=', template)
+            ch = input()
             prompts, char_spanss, train_permutations = [], [], []
             
             # Format prompt and query LM
             pattern = rel2template2results[rel][template].get('template', template)
             print('pattern=', pattern)
+            ch = input()
             instruction = '\n' + rel2template2results[rel][template].get('instruction', '')
             print('instruction=', instruction)
+            ch = input()
             verbalizer = rel2template2results[rel][template].get('verbalizer', []) if data_name == 'super_glue' else vocab_tokens_sorted
             print('verbalizer=', verbalizer)
+            ch = input()
             single_token_verbalizer = [tokenizer.decode(tokenizer.encode(v)[0]) for v in verbalizer] if rel == 'wic' else verbalizer
             single_token_verbalizer2idx = {v: i for i, v in enumerate(single_token_verbalizer)}
             single_token_verbalizer_set = set(single_token_verbalizer)
