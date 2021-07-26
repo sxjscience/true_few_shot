@@ -580,9 +580,9 @@ def complete_lm(model, tokenizer, prompt, l=0, num_log_probs=100, echo=True):
             # we are left padding, so we need to adjust the position IDs for models that aren't usually left-padded
             attention_mask = (total_sequences != tokenizer.pad_token_id).float()
             position_ids = attention_mask.long().cumsum(-1) - 1
-            print('before position_ids=', position_ids)
+            print('before position_ids=', position_ids[0])
             position_ids.masked_fill_(attention_mask == 0, 1)
-            print('after position_ids=', position_ids)
+            print('after position_ids=', position_ids[0])
             ch = input()
             logits = model.forward(input_ids=total_sequences, attention_mask=attention_mask, position_ids=position_ids, return_dict=True).logits.detach().cpu().float()
         if not echo:
