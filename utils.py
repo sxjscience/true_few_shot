@@ -555,13 +555,17 @@ def complete_lm(model, tokenizer, prompt, l=0, num_log_probs=100, echo=True):
     input_ids = tokenizer.batch_encode_plus(prompt, return_tensors="pt", padding=True, return_offsets_mapping=True)
     offset_mapping = input_ids.pop('offset_mapping')
     print('In complete_lm, input_ids=', input_ids)
+    print('input_ids["input_ids"].shape=', input_ids['input_ids'].shape)
     ch = input()
     # greedily generate l tokens
     if l > 0:
         assert not xlnet, f'Generation not implemented for {model.__class__.__name__}'
         # the generate function can handle left padded inputs automatically in HF
         # total_sequences is now the input + possible generated output
-        total_sequences = model.generate(input_ids=input_ids['input_ids'].to(device), attention_mask=input_ids['attention_mask'].to(device), max_length=l + len(input_ids['input_ids'][0]), do_sample=False)
+        total_sequences = model.generate(input_ids=input_ids['input_ids'].to(device),
+                                         attention_mask=input_ids['attention_mask'].to(device),
+                                         max_length=l + len(input_ids['input_ids'][0]), do_sample=False)
+        print(total_sequences)
     else:
         assert echo == True and l == 0
         total_sequences = input_ids['input_ids'].to(device)
