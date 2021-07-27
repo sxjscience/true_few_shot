@@ -651,6 +651,8 @@ def complete_lm(model, tokenizer, prompt, l=0, num_log_probs=100, echo=True):
                 # cutoff the -1 here because the probs are shifted one over for LMs
                 top_tokens_slice = slice(start_tok+int(xlnet), end_tok-1+int(xlnet))
                 for current_element_top_log_probs, current_element_top_tokens in zip(top_log_probs[batch_id][top_tokens_slice], top_tokens[batch_id][top_tokens_slice]):
+                    print('current_element_top_log_probs=', current_element_top_log_probs,
+                          'current_element_top_tokens=', current_element_top_tokens)
                     current_element_top_tokens_str = [tokenizer.id2token[cur_id] for cur_id in current_element_top_tokens.tolist()]
                     temp = dict(zip(current_element_top_tokens_str, current_element_top_log_probs.tolist()))
                     curr_json['logprobs']['top_logprobs'].append(temp)
