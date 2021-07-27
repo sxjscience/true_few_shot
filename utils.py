@@ -655,6 +655,7 @@ def complete_lm(model, tokenizer, prompt, l=0, num_log_probs=100, echo=True):
                           'current_element_top_tokens=', current_element_top_tokens)
                     current_element_top_tokens_str = [tokenizer.id2token[cur_id] for cur_id in current_element_top_tokens.tolist()]
                     temp = dict(zip(current_element_top_tokens_str, current_element_top_log_probs.tolist()))
+                    print('temp=', temp)
                     curr_json['logprobs']['top_logprobs'].append(temp)
                 for index in range(start_tok, end_tok):
                     curr_json['logprobs']['tokens'].append(tokenizer.decode([total_sequences[batch_id][index]]))
