@@ -221,7 +221,6 @@ def format_prompt(train, d, last_train_idx, permutation, verbalizer=[], rel=None
 
 def get_results(logprobs, char_spans, all_labels_list, prompt, verbalizer, verbalizer2idx, verbalizer_set, save_verbalizer_logprobs=False):
     results = []
-    print('in get_results, logprobs=', logprobs)
     print('in get_results, char_spans=', char_spans)
     for (char_start, char_end), all_labels in zip(char_spans, all_labels_list):
         # Get label logprob
