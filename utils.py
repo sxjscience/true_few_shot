@@ -663,6 +663,7 @@ def complete_lm(model, tokenizer, prompt, l=0, num_log_probs=100, echo=True):
                 print('tokens=', curr_json['logprobs']['tokens'])
                 curr_json['logprobs']['token_logprobs'].append(None)
                 for index in range(start_tok+int(xlnet), end_tok-1+int(xlnet)):
+                    print('token_log_probs, index=', index)
                     log_probs_token_position_j = logprobs[batch_id][index]
                     # probs are left shifted for LMs
                     curr_json['logprobs']['token_logprobs'].append(log_probs_token_position_j[total_sequences[batch_id][index+int(not xlnet)]].item())
