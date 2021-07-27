@@ -659,6 +659,7 @@ def complete_lm(model, tokenizer, prompt, l=0, num_log_probs=100, echo=True):
                     curr_json['logprobs']['top_logprobs'].append(temp)
                 for index in range(start_tok, end_tok):
                     curr_json['logprobs']['tokens'].append(tokenizer.decode([total_sequences[batch_id][index]]))
+                print('tokens=', curr_json['logprobs']['tokens'])
                 curr_json['logprobs']['token_logprobs'].append(None)
                 for index in range(start_tok+int(xlnet), end_tok-1+int(xlnet)):
                     log_probs_token_position_j = logprobs[batch_id][index]
