@@ -554,9 +554,6 @@ def complete_lm(model, tokenizer, prompt, l=0, num_log_probs=100, echo=True):
         prompt = [prompt] # the code below assumes a list
     input_ids = tokenizer.batch_encode_plus(prompt, return_tensors="pt", padding=True, return_offsets_mapping=True)
     offset_mapping = input_ids.pop('offset_mapping')
-    print('In complete_lm, input_ids=', input_ids)
-    print('input_ids["input_ids"].shape=', input_ids['input_ids'].shape)
-    ch = input()
     # greedily generate l tokens
     if l > 0:
         assert not xlnet, f'Generation not implemented for {model.__class__.__name__}'
@@ -565,7 +562,6 @@ def complete_lm(model, tokenizer, prompt, l=0, num_log_probs=100, echo=True):
         total_sequences = model.generate(input_ids=input_ids['input_ids'].to(device),
                                          attention_mask=input_ids['attention_mask'].to(device),
                                          max_length=l + len(input_ids['input_ids'][0]), do_sample=False)
-        print(total_sequences)
     else:
         assert echo == True and l == 0
         total_sequences = input_ids['input_ids'].to(device)
@@ -591,7 +587,6 @@ def complete_lm(model, tokenizer, prompt, l=0, num_log_probs=100, echo=True):
         else:
             # get the top tokens and probs for the context and the generated l tokens
             probs = torch.softmax(logits, dim=2).cpu()
-            print('probs.shape=', probs.shape)
         top_probs, top_tokens = torch.topk(probs, k=num_log_probs)
         logprobs = torch.log(probs)
         top_log_probs = torch.log(top_probs)
@@ -617,12 +612,12 @@ def complete_lm(model, tokenizer, prompt, l=0, num_log_probs=100, echo=True):
             curr_json['logprobs']['tokens'] = []
             
             nonzero_char_end_idxs = offset_mapping[batch_id, :, 1].nonzero()
-            print('top_tokens=', top_tokens.shape)
-            print('prompt=', prompt[batch_id])
-            print('offset_mapping.shape=', offset_mapping.shape)
-            print('offset_mapping=', offset_mapping[batch_id, :])
-            print('nonzero_char_end_idxs=', nonzero_char_end_idxs)
-            ch = input()
+            # print('top_tokens=', top_tokens.shape)
+            # print('prompt=', prompt[batch_id])
+            # print('offset_mapping.shape=', offset_mapping.shape)
+            # print('offset_mapping=', offset_mapping[batch_id, :])
+            # print('nonzero_char_end_idxs=', nonzero_char_end_idxs)
+            # ch = input()
             start_tok = min(nonzero_char_end_idxs).item() # inclusive
             end_tok = max(nonzero_char_end_idxs).item() + 1 # exclusive
             if not xlnet:
@@ -653,17 +648,16 @@ def complete_lm(model, tokenizer, prompt, l=0, num_log_probs=100, echo=True):
                 # cutoff the -1 here because the probs are shifted one over for LMs
                 top_tokens_slice = slice(start_tok+int(xlnet), end_tok-1+int(xlnet))
                 for current_element_top_log_probs, current_element_top_tokens in zip(top_log_probs[batch_id][top_tokens_slice], top_tokens[batch_id][top_tokens_slice]):
-                    print('current_element_top_log_probs=', current_element_top_log_probs,
-                          'current_element_top_tokens=', current_element_top_tokens)
+                    # print('current_element_top_log_probs=', current_element_top_log_probs,
+                    #       'current_element_top_tokens=', current_element_top_tokens)
                     current_element_top_tokens_str = [tokenizer.id2token[cur_id] for cur_id in current_element_top_tokens.tolist()]
                     temp = dict(zip(current_element_top_tokens_str, current_element_top_log_probs.tolist()))
                     curr_json['logprobs']['top_logprobs'].append(temp)
                 for index in range(start_tok, end_tok):
                     curr_json['logprobs']['tokens'].append(tokenizer.decode([total_sequences[batch_id][index]]))
-                print('tokens=', curr_json['logprobs']['tokens'])
                 curr_json['logprobs']['token_logprobs'].append(None)
                 for index in range(start_tok+int(xlnet), end_tok-1+int(xlnet)):
-                    print('token_log_probs, index=', index)
+                    # print('token_log_probs, index=', index)
                     log_probs_token_position_j = logprobs[batch_id][index]
                     # probs are left shifted for LMs
                     curr_json['logprobs']['token_logprobs'].append(log_probs_token_position_j[total_sequences[batch_id][index+int(not xlnet)]].item())
