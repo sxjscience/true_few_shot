@@ -618,6 +618,7 @@ def complete_lm(model, tokenizer, prompt, l=0, num_log_probs=100, echo=True):
             
             nonzero_char_end_idxs = offset_mapping[batch_id, :, 1].nonzero()
             print('top_tokens=', top_tokens.shape)
+            print('prompt=', prompt[batch_id])
             print('offset_mapping.shape=', offset_mapping.shape)
             print('offset_mapping=', offset_mapping[batch_id, :])
             print('nonzero_char_end_idxs=', nonzero_char_end_idxs)
