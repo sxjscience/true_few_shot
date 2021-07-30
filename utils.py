@@ -230,6 +230,9 @@ def get_results(logprobs, char_spans, all_labels_list, prompt, verbalizer, verba
         char_start['prey'] = char_start['example']
         char_end['prey'] = char_start['y']
         print('in get_results, char_start=', char_start)
+        print('              , char_end=', char_end)
+        print('              , all_labels=', all_labels)
+        ch = input()
         for data_type in ['y', 'x0', 'x1', 'x2', 'example', 'prey']:
             if data_type not in char_start:
                 assert data_type not in char_end
