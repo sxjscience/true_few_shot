@@ -38,6 +38,7 @@ engine2bs = { # in terms of number of training examples
     'ada': 600,
     'babbage': 600,
     'curie': 600,
+
     'davinci': 600,
     'distilgpt2': 2400,
     'gpt2': 2400,
@@ -221,7 +222,6 @@ def format_prompt(train, d, last_train_idx, permutation, verbalizer=[], rel=None
 
 def get_results(logprobs, char_spans, all_labels_list, prompt, verbalizer, verbalizer2idx, verbalizer_set, save_verbalizer_logprobs=False):
     results = []
-    print('in get_results, char_spans=', char_spans)
     for (char_start, char_end), all_labels in zip(char_spans, all_labels_list):
         # Get label logprob
         token_start = {}
