@@ -341,6 +341,7 @@ for seed in seeds:
             for didx, (d, logprobs, prompt, char_spans, train_permutation) in enumerate(zip(dev, all_logprobs, prompts, char_spanss, train_permutations)):
                 # Get results
                 print('rel2x2validys[rel][xy[0]] = ', [rel2x2validys[rel][xy[0]] for xy in train + [d]])
+                ch = input()
                 all_labels_list = [[] if (rel2x2validys is None) else rel2x2validys[rel][xy[0]] for xy in train + [d]]
                 result = get_results(logprobs, char_spans, all_labels_list, prompt, single_token_verbalizer, single_token_verbalizer2idx, single_token_verbalizer_set, save_verbalizer_logprobs=(data_name == 'super_glue'))
                 result['permutation'] = [train_idxs[i] for i in train_permutation] + [dev_idxs[didx]]
